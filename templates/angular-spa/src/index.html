@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Okta Angular</title>
+    <base href="/" data-base-path="" />
+    <script>
+      // Router base: the configured base path (data-base-path, set by gen-env.mjs) when the page
+      // is really served under it, else the path prefix Mimic serves the app from.
+      (function () {
+        var base = document.querySelector('base');
+        var configured = base.dataset.basePath;
+        if (configured && location.pathname.indexOf(configured) === 0) {
+          base.setAttribute('href', configured + '/');
+          return;
+        }
+        var m = location.pathname.match(/^.*\/__mimic__\/[^/]+\/[^/]+\/\d+/);
+        if (m) base.setAttribute('href', m[0] + '/');
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>
