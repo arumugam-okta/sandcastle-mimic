@@ -12,6 +12,9 @@ const mimicAssets = [
   ...isolation,
   { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
   { key: "Service-Worker-Allowed", value: "/" },
+  // The platform gateway adds X-Frame-Options: DENY. Browsers ignore X-Frame-Options when
+  // frame-ancestors is present, so this lets the page frame its own runtime host.
+  { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
 ];
 
 const nextConfig: NextConfig = {
