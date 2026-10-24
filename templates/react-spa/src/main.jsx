@@ -77,5 +77,5 @@ function App() {
 }
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter basename={BASE} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}><App /></BrowserRouter>
+  <BrowserRouter basename={BASE}><App /></BrowserRouter>
 );
