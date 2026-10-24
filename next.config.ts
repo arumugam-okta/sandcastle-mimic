@@ -6,6 +6,14 @@ const isolation = [
   { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
 ];
 
+// Mimic's runtime files are loaded by its hidden runtime-host frame and registered as a service
+// worker, so they also need a CORP header and a service worker scope of /.
+const mimicAssets = [
+  ...isolation,
+  { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
+  { key: "Service-Worker-Allowed", value: "/" },
+];
+
 const nextConfig: NextConfig = {
   // Self-contained server output (.next/standalone) for container deploys.
   output: "standalone",
@@ -17,7 +25,10 @@ const nextConfig: NextConfig = {
     },
   },
   async headers() {
-    return [{ source: "/:path*", headers: isolation }];
+    return [
+      { source: "/:path*", headers: isolation },
+      { source: "/mimic/:path*", headers: mimicAssets },
+    ];
   },
 };
 
